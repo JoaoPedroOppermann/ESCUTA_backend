@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use DateTime;
+
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Password;
@@ -101,11 +102,15 @@ class AuthController extends Controller
         }
 
         if ($request->hasFile('foto')) {
+
             $date = new DateTime();
             $foto = $request->file('foto');
             $mini = ImageResize::make($foto->path());
             $nomeArquivo = $request->file('foto')->getClientOriginalName();
             $nomeArquivo = $date->getTimestamp().$nomeArquivo;
+            $foto = $request->file('foto');
+            $mini = ImageResize::make($foto->path());
+
             if (!$mini->resize(500, 500, function ($constriant) {
                 $constriant->aspectRatio();
             })->save($pasta . '\\' . $nomeArquivo)) {
@@ -148,19 +153,6 @@ class AuthController extends Controller
                 "user" => "Erro ao deslogar"
             ]);
         }
-    }
-
-    public function redefinicaoPassword(Request $request)
-    {
-        $request->validate(['email' => 'required|email']);
-
-        $status = Password::sendResetLink(
-            $request->only('email')
-        );
-
-        return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
     }
 
     public function reset()

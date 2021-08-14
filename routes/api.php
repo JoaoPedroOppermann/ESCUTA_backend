@@ -7,6 +7,7 @@ use App\http\Controllers\PostagemController;
 use App\http\Controllers\SeguidorController;
 use App\http\Controllers\ComentarioController;
 use App\http\Controllers\AuthController;
+
 use App\Http\Controllers\ForgotPasswordController;
 use App\Mail\SendMailClient;
 use App\Models\User;
@@ -33,7 +34,9 @@ use Illuminate\Support\Facades\Mail;
         Route::resource('postagem', PostagemController::class);
         Route::resource('seguidor', SeguidorController::class);
         Route::resource('comentario', ComentarioController::class);
+
         Route::post('recuperarSenha', [ForgotPasswordController::class, 'reqForgotPassword']);
         Route::post('atualizarSenha', [ForgotPasswordController::class, 'updatePassword']);
         Route::get('buscar', [PostagemController::class, 'show']);
+
     });
