@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use DateTime;
+
 use Illuminate\Http\Request;
 use ImageResize;
 
@@ -138,8 +140,10 @@ class UsuarioController extends Controller
             })->save($pasta . '\\' . $nomeArquivo)) {
                 $nomeArquivo = "vazio.jpg";
             }
+
             $date = new DateTime();
             $usuario['foto'] = $date->getTimestamp().$nomeArquivo;
+
         }
 
         if ($usuario->save()) {
