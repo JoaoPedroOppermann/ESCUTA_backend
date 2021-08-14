@@ -24,7 +24,7 @@ class CreatePostagemsTable extends Migration
             $table->timestamps();
             //FK usuario da postagem
             $table->unsignedInteger('cod_usuario');
-            $table->foreign('cod_usuario')->references("id")->on("usuarios")->onDelete("cascade");
+            $table->foreign('cod_usuario')->references("id")->on("users")->onDelete("cascade");
         });
     }
 

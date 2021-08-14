@@ -19,11 +19,11 @@ class CreateSeguidorsTable extends Migration
 
             //FK seguidor com usuario
             $table->unsignedInteger('cod_usuario_seguidor');
-            $table->foreign('cod_usuario_seguidor')->references("id")->on("usuarios")->onDelete("cascade");
+            $table->foreign('cod_usuario_seguidor')->references("id")->on("users")->onDelete("cascade");
 
             //FK usuario perfil
             $table->unsignedInteger('cod_usuario_perfil');
-            $table->foreign('cod_usuario_perfil')->references("id")->on("usuarios")->onDelete("cascade");
+            $table->foreign('cod_usuario_perfil')->references("id")->on("users")->onDelete("cascade");
         });
     }
 
