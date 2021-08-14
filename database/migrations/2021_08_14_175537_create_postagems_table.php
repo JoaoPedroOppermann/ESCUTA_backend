@@ -17,14 +17,14 @@ class CreatePostagemsTable extends Migration
             $table->increments('id');
             $table->string('titulo', 50);
             $table->string('descricao', 255);
-            $table->char('comentario', 1);
-            $table->char('curtidas', 1);
+            $table->char('comentario', 1)->default('V');
+            $table->char('curtidas', 1)->default('V');
             $table->string('audio', 255);
-            $table->datetime('data_postagem');
+            $table->datetime('data_postagem')->useCurrent();
             $table->timestamps();
             //FK usuario da postagem
             $table->unsignedInteger('cod_usuario');
-            $table->foreign('cod_usuario')->references("id")->on("usuarios")->onDelete("cascade");
+            $table->foreign('cod_usuario')->references("id")->on("users")->onDelete("cascade");
         });
     }
 

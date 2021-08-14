@@ -21,8 +21,8 @@ class CreateComentariosTable extends Migration
 
             //FK comentario com usuario
             $table->unsignedInteger('cod_usuario');
-            $table->foreign('cod_usuario')->references("id")->on("usuarios")->onDelete("cascade");
-            
+            $table->foreign('cod_usuario')->references("id")->on("users")->onDelete("cascade");
+
             //FK comentario com postagem
             $table->unsignedInteger('cod_postagem');
             $table->foreign('cod_postagem')->references("id")->on("postagems")->onDelete("cascade");
