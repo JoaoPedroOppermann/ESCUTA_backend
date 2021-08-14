@@ -43,7 +43,7 @@ class ComentarioController extends Controller
             return response()->json($comentario, 201, [], JSON_UNESCAPED_UNICODE|JSON_INVALID_UTF8_IGNORE);
         } else {
             return response()->json(['erro'=>'Erro ao salvar'], 401);
-    }
+        }
     }
 
     /**
@@ -98,5 +98,6 @@ class ComentarioController extends Controller
             return response()->json(['mensagem'=>'sucesso ao excluir'], 202);
         } else {
             return response()->json(['erro'=>'Erro ao excluir'], 401);
-        }    }
+        }
+    }
 }

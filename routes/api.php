@@ -6,6 +6,11 @@ use App\http\Controllers\UsuarioController;
 use App\http\Controllers\PostagemController;
 use App\http\Controllers\SeguidorController;
 use App\http\Controllers\ComentarioController;
+use App\http\Controllers\AuthController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Mail\SendMailClient;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +22,18 @@ use App\http\Controllers\ComentarioController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    Route::resource('usuarios', UsuarioController::class);
-    Route::resource('postagem', PostagemController::class);
-    Route::resource('seguidor', SeguidorController::class);
-    Route::resource('comentario', ComentarioController::class);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('register', [AuthController::class, 'register']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    Route::group(['middleware'=>'auth.jwt'], function () {
+        Route::get('logout', [AuthController::class, 'logout']);
+        Route::resource('usuarios', UsuarioController::class);
+        Route::post('editarImage/{usuario}', [UsuarioController::class, 'editImage']);
+        Route::post('validateToken', [AuthController::class, 'validateToken']);
+        Route::resource('postagem', PostagemController::class);
+        Route::resource('seguidor', SeguidorController::class);
+        Route::resource('comentario', ComentarioController::class);
+        Route::post('recuperarSenha', [ForgotPasswordController::class, 'reqForgotPassword']);
+        Route::post('atualizarSenha', [ForgotPasswordController::class, 'updatePassword']);
+        Route::get('buscar', [PostagemController::class, 'show']);
+    });
